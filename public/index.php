@@ -21,17 +21,19 @@
     
     <?php
 
-    	include "config.php";
+    	require_once "../config.php";
+
+    	use Model\File;
 
     	if(isset($_FILES['file_upload'])) {
     		//$user = $app->user->name;
-    		$user = 'stole';
+    		$user = rand();
     		$fileName = $_FILES['file_upload']['name'];
     		$size = $_FILES['file_upload']['size'];
     		$type = $_FILES['file_upload']['type'];
     		$tmp = $_FILES['file_upload']['tmp_name'];
 
-    		$files = 'UploadedFiles/' . $fileName;
+    		$files = '../UploadedFiles/' . $fileName;
 
     		$move = move_uploaded_file($tmp,$files);
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '../vendor/autoload.php';
+
 $dbhost = "localhost:3333";
 $dbname = "orders";
 $dbusername = "stole";
