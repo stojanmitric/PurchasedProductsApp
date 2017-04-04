@@ -2,8 +2,6 @@
 
 namespace CustomsControlSM\Model;
 
-
-
 class ProductEvidence {
 
 public $name;

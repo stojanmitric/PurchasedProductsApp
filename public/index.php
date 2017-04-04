@@ -80,10 +80,52 @@ if (isset($_FILES['file_upload'])) {
         </br>
 
         <div class="row">
+
         <?php
-            $stmt = $db->prepare("SELECT * FROM uploads");
-            $stmt->execute();
-            while($row = $stmt->fetch()) {
+
+        if(isset($_GET['uploadedFile'])) {
+            $img = $_GET['uploadedFile'];
+            $user = $_GET['user'];
+            $unlink = unlink('../UploadedFiles/'.$img);
+
+            if($unlink) {
+                $delstmt = $db->prepare("DELETE FROM uploads where user='$user'");
+
+                if($delstmt->execute()) {
+        ?>
+            <div class="alert alert-success" role="alert">>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file has been deleted from db and directory.
+            </div>
+
+        <?php
+                } else {
+        ?>
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file has NOT been deleted from db and directory.
+            </div>
+
+        <?php
+                }
+
+            } else {
+        ?>
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file is not in directory.
+            </div>
+
+        <?php
+            }
+
+
+        }
+            $selstmt = $db->prepare("SELECT * FROM uploads");
+            $selstmt->execute();
+            while($row = $selstmt->fetch()) {
 
             
         ?>
@@ -93,7 +135,7 @@ if (isset($_FILES['file_upload'])) {
               </div>
 
               <div class="caption text-center">
-                <p><a href="?file=<?php echo $row['file'] ?>&id=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
+                <p><a href="?uploadedFile=<?php echo $row['file'] ?>&user=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
               </div>
         </div>
         <?php
