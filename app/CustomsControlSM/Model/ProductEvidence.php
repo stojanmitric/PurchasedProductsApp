@@ -24,9 +24,11 @@ public $tmp;
 
 		$user     = rand();
 
-		$files = '../UploadedFiles/' . $this->name;
+		$fileToUpload = '../UploadedFiles/' . $this->name;
 
-		$move = move_uploaded_file($this->tmp, $files);
+		if(!file_exists($fileToUpload)) {
+			$move = move_uploaded_file($this->tmp, $fileToUpload);
+		}
 
 		if ($move) {
 	        

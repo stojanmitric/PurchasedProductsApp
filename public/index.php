@@ -34,15 +34,18 @@ if (isset($_FILES['file_upload'])) {
     $size     = $_FILES['file_upload']['size'];
     $type     = $_FILES['file_upload']['type'];
     $tmp      = $_FILES['file_upload']['tmp_name'];
+
+    $fileExist = '../UploadedFiles/' . $fileName;
     
     $productEvidence = new ProductEvidence($fileName, $size, $type, $tmp);
 
     $success = $productEvidence->save();
+            
  
         if($success) {     
 ?>
 
-                    <div class="alert alert-success" role="alert">>
+                    <div class="alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       Your file upload is successfull.
                     </div>
@@ -56,7 +59,7 @@ if (isset($_FILES['file_upload'])) {
                     </div>
 
 <?php
-    }
+        }
 }
 ?>
 
@@ -78,6 +81,7 @@ if (isset($_FILES['file_upload'])) {
 
         </br>
         </br>
+        </br>
 
         <div class="row">
 
@@ -93,7 +97,7 @@ if (isset($_FILES['file_upload'])) {
 
                 if($delstmt->execute()) {
         ?>
-            <div class="alert alert-success" role="alert">>
+            <div class="alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       Your file has been deleted from db and directory.
             </div>
