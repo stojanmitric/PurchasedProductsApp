@@ -81,17 +81,24 @@ if (isset($_FILES['file_upload'])) {
 
         <div class="row">
         <?php
+            $stmt = $db->prepare("SELECT * FROM uploads");
+            $stmt->execute();
+            while($row = $stmt->fetch()) {
+
+            
         ?>
               <div class="col-xs-6 col-md-4">
-                <a href="#" class="thumbnail">
-                  <img src="..." alt="...">
-                </a>
+              <div class= "tumbnail">    
+                  <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
               </div>
 
-              <div class="caption">
-                <a href="#" class="btn btn-danger" role="button"> Delete </a>
+              <div class="caption text-center">
+                <p><a href="?file=<?php echo $row['file'] ?>&id=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
               </div>
         </div>
+        <?php
+        }
+        ?>
 
     </div>
 
