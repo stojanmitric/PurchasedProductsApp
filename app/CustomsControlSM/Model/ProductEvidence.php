@@ -28,16 +28,30 @@ public $tmp;
 
 		if(!file_exists($fileToUpload)) {
 			$move = move_uploaded_file($this->tmp, $fileToUpload);
-		}
+		} 
 
 		if ($move) {
 	        
-	        $query = $db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
-	        
-	        $query->bindParam(':user', $user);
-	        $query->bindParam(':file', $this->name);
-	        
-	        $query->execute();
+	        if($activeDB==='mysql') {
+
+		        $query = $db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
+		        
+		        $query->bindParam(':user', $user);
+		        $query->bindParam(':file', $this->name);
+		        
+		        $query->execute();
+
+	    	} else {
+
+	    		$mongoCollection = $mongoDB->selectDatabase('orders')->selectCollection('uploads');
+
+	    		$data = array( 
+			      "user" => $user, 
+			      "file" => $this->name
+			   	);
+
+	    		$mongoCollection->insertOne($data);
+	    	}
 
 	        return true;
     	} else {

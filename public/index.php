@@ -55,7 +55,7 @@ if (isset($_FILES['file_upload'])) {
 ?>
                     <div class="alert alert-warning alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      Your file did not uploaded.
+                      You already uploaded that file.
                     </div>
 
 <?php
@@ -85,52 +85,58 @@ if (isset($_FILES['file_upload'])) {
 
         <div class="row">
 
-        <?php
 
-        if(isset($_GET['uploadedFile'])) {
-            $img = $_GET['uploadedFile'];
-            $user = $_GET['user'];
-            $unlink = unlink('../UploadedFiles/'.$img);
+            <?php
 
-            if($unlink) {
-                $delstmt = $db->prepare("DELETE FROM uploads where user='$user'");
+            if(isset($_GET['uploadedFile'])) {
+                $img = $_GET['uploadedFile'];
+                $user = $_GET['user'];
+                $unlink = unlink('../UploadedFiles/'.$img);
 
-                if($delstmt->execute()) {
-        ?>
-            <div class="alert alert-success alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      Your file has been deleted from db and directory.
-            </div>
+                if($unlink) {
 
-        <?php
+                    if($activeDB === 'mysql') {
+
+                        $delstmt = $db->prepare("DELETE FROM uploads where user='$user'");
+
+                        $executed = $delstmt->execute();
+
+                        header("LOCATION: http://localhost:8000/public/index.php");
+
+                    } else {
+                        //mongodb delete
+
+                    }
+
+                    if($executed) {
+            ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          Your file has been deleted from db and directory.
+                </div>
+
+            <?php
+
                 } else {
-        ?>
+            ?>
 
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      Your file has NOT been deleted from db and directory.
-            </div>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          Your file is not in directory.
+                </div>
 
-        <?php
+            <?php
                 }
-
-            } else {
-        ?>
-
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      Your file is not in directory.
-            </div>
-
-        <?php
             }
 
-
         }
+
+
+            if($activeDB === 'mysql') {
+
             $selstmt = $db->prepare("SELECT * FROM uploads");
             $selstmt->execute();
             while($row = $selstmt->fetch()) {
-
             
         ?>
               <div class="col-xs-6 col-md-4">
@@ -143,7 +149,14 @@ if (isset($_FILES['file_upload'])) {
               </div>
         </div>
         <?php
+            }
+
+        } else {
+
+            //show pictures with mongo
+
         }
+
         ?>
 
     </div>
