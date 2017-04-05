@@ -28,7 +28,9 @@ public $tmp;
 
 		$files = '../UploadedFiles/' . $this->name;
 
-		$move = move_uploaded_file($this->tmp, $files);
+		if(!file_exists($files)) {
+			$move = move_uploaded_file($this->tmp, $files);
+		}
 
 		if ($move) {
 	        
