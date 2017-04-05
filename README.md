@@ -8,4 +8,4 @@ How to run:
 
 2. Navigate to PurchasedProductsApp folder and run php -S localhost:8000 in console
 
-3. Open http://localhost:8000/index.php in browser
+3. Open http://localhost:8000/public/index.php in browser
