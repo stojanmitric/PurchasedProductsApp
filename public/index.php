@@ -34,15 +34,18 @@ if (isset($_FILES['file_upload'])) {
     $size     = $_FILES['file_upload']['size'];
     $type     = $_FILES['file_upload']['type'];
     $tmp      = $_FILES['file_upload']['tmp_name'];
+
+    $fileExist = '../UploadedFiles/' . $fileName;
     
     $productEvidence = new ProductEvidence($fileName, $size, $type, $tmp);
 
     $success = $productEvidence->save();
+            
  
         if($success) {     
 ?>
 
-                    <div class="alert alert-success" role="alert">>
+                    <div class="alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       Your file upload is successfull.
                     </div>
@@ -56,7 +59,7 @@ if (isset($_FILES['file_upload'])) {
                     </div>
 
 <?php
-    }
+        }
 }
 ?>
 
@@ -78,20 +81,70 @@ if (isset($_FILES['file_upload'])) {
 
         </br>
         </br>
+        </br>
 
         <div class="row">
+
         <?php
+
+        if(isset($_GET['uploadedFile'])) {
+            $img = $_GET['uploadedFile'];
+            $user = $_GET['user'];
+            $unlink = unlink('../UploadedFiles/'.$img);
+
+            if($unlink) {
+                $delstmt = $db->prepare("DELETE FROM uploads where user='$user'");
+
+                if($delstmt->execute()) {
+        ?>
+            <div class="alert alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file has been deleted from db and directory.
+            </div>
+
+        <?php
+                } else {
+        ?>
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file has NOT been deleted from db and directory.
+            </div>
+
+        <?php
+                }
+
+            } else {
+        ?>
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      Your file is not in directory.
+            </div>
+
+        <?php
+            }
+
+
+        }
+            $selstmt = $db->prepare("SELECT * FROM uploads");
+            $selstmt->execute();
+            while($row = $selstmt->fetch()) {
+
+            
         ?>
               <div class="col-xs-6 col-md-4">
-                <a href="#" class="thumbnail">
-                  <img src="..." alt="...">
-                </a>
+              <div class= "tumbnail">    
+                  <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
               </div>
 
-              <div class="caption">
-                <a href="#" class="btn btn-danger" role="button"> Delete </a>
+              <div class="caption text-center">
+                <p><a href="?uploadedFile=<?php echo $row['file'] ?>&user=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
               </div>
         </div>
+        <?php
+        }
+        ?>
 
     </div>
 
