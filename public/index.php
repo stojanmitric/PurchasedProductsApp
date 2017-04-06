@@ -25,48 +25,11 @@ use CustomsControlSM\Model\ProductEvidence;
 
   <body>
     <div class="container">
-    
-<?php
-
-if (isset($_FILES['file_upload'])) {
-    
-    $fileName = $_FILES['file_upload']['name'];
-    $size     = $_FILES['file_upload']['size'];
-    $type     = $_FILES['file_upload']['type'];
-    $tmp      = $_FILES['file_upload']['tmp_name'];
-
-    $fileExist = '../UploadedFiles/' . $fileName;
-    
-    $productEvidence = new ProductEvidence($fileName, $size, $type, $tmp);
-
-    $success = $productEvidence->save();
-            
- 
-        if($success) {     
-?>
-
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      Your file upload is successfull.
-                    </div>
-                    
-<?php
-            } else {
-?>
-                    <div class="alert alert-warning alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      You already uploaded that file.
-                    </div>
-
-<?php
-        }
-}
-?>
 
         </br>
         </br>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" action ="ProductEvidenceController.php" enctype="multipart/form-data">
 
           <div class="form-group">
               
@@ -154,6 +117,19 @@ if (isset($_FILES['file_upload'])) {
         } else {
 
             //show pictures with mongo
+
+
+        ?>
+            <div class="col-xs-6 col-md-4">
+              <div class= "tumbnail">    
+                  <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
+              </div>
+
+              <div class="caption text-center">
+                <p><a href="?uploadedFile=<?php echo $row['file'] ?>&user=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
+            </div>
+        <?php
+
 
         }
 

@@ -4,30 +4,20 @@ namespace CustomsControlSM\Model;
 
 class ProductEvidence {
 
-public $name;
-public $size;
-public $type;
-public $tmp;
-
-	public function __construct($name,$size,$type,$tmp) {
-
-		$this->name = $name;
-		$this->size = $size;
-		$this->type = $type;
-		$this->tmp = $tmp;
+	public function __construct() {
 
 	}
 
-	public function save() {
+	public function save($file) {
 
 		include ("../config.php");
 
 		$user     = rand();
 
-		$fileToUpload = '../UploadedFiles/' . $this->name;
+		$fileToUpload = '../UploadedFiles/' . $file['name'];
 
 		if(!file_exists($fileToUpload)) {
-			$move = move_uploaded_file($this->tmp, $fileToUpload);
+			$move = move_uploaded_file($file['tmp_name'], $fileToUpload);
 		} 
 
 		if ($move) {
