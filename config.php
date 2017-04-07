@@ -2,29 +2,17 @@
 
 require_once __DIR__ . '../vendor/autoload.php';
 
-use MongoDB\Client;
+use db\MongoDatabase;
+use db\MySqlDatabase;
 
-$activeDB = 'mongo';
+$activeDB==='mysql';
 
-	if($activeDB === 'mysql') {
-
-		$dbhost = "localhost:3333";
-		$dbname = "orders";
-		$dbusername = "stole";
-		$dbpassword = "sifra";
-
-
-		$db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
-
-	} else {
-
-		$mongoDBhost = "localhost:27017";
-		$mongoDBname = "orders";
-		$mongoDBusername = "stole";
-		$mongoDBpassword = "stole";
-
-		$mongoDB = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
-
-	}
+if($activeDB==='mysql') {
+	$mysql = new MySqlDatabase();
+	$mysql->init();
+} else {
+	$mongo = new MongoDatabase();
+	$mongo->init();
+}
 
 ?>

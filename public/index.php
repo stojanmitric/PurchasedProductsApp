@@ -2,8 +2,6 @@
 
 require "../config.php";
 
-use CustomsControlSM\Model\ProductEvidence;
-
 ?>
 
 <!DOCTYPE html>
@@ -48,52 +46,7 @@ use CustomsControlSM\Model\ProductEvidence;
 
         <div class="row">
 
-
-            <?php
-
-            if(isset($_GET['uploadedFile'])) {
-                $img = $_GET['uploadedFile'];
-                $user = $_GET['user'];
-                $unlink = unlink('../UploadedFiles/'.$img);
-
-                if($unlink) {
-
-                    if($activeDB === 'mysql') {
-
-                        $delstmt = $db->prepare("DELETE FROM uploads where user='$user'");
-
-                        $executed = $delstmt->execute();
-
-                        header("LOCATION: http://localhost:8000/public/index.php");
-
-                    } else {
-                        //mongodb delete
-
-                    }
-
-                    if($executed) {
-            ?>
-                <div class="alert alert-success alert-dismissible" role="alert">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          Your file has been deleted from db and directory.
-                </div>
-
-            <?php
-
-                } else {
-            ?>
-
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          Your file is not in directory.
-                </div>
-
-            <?php
-                }
-            }
-
-        }
-
+        <?php
 
             if($activeDB === 'mysql') {
 
@@ -101,7 +54,7 @@ use CustomsControlSM\Model\ProductEvidence;
             $selstmt->execute();
             while($row = $selstmt->fetch()) {
             
-        ?>
+            ?>
               <div class="col-xs-6 col-md-4">
               <div class= "tumbnail">    
                   <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
