@@ -1,18 +1,16 @@
 <?php
 
-namespace db;
+namespace CustomsControlSM\db;
 
-use MongoDB\Client;
+interface IDatabase {
 
-interface DBConnectionWrapper {
-
-	public function init();
-
-	public function add();
+	public function create($user, $fileName);
 
 	public function update();
 
-	public function delete();
+	public function delete($user, $file);
+
+	public function listAll();
 
 }
 

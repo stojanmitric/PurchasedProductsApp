@@ -2,6 +2,8 @@
 
 namespace CustomsControlSM\Model;
 
+require '../config.php';
+
 class ProductEvidence {
 
 	public function __construct() {
@@ -14,6 +16,8 @@ class ProductEvidence {
 		$fileName = $file['name'];
 
 		$fileToUpload = '../UploadedFiles/' . $fileName;
+
+		$move = '';
 
 		if(!file_exists($fileToUpload)) {
 			$move = move_uploaded_file($file['tmp_name'], $fileToUpload);

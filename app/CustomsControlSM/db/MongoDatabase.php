@@ -1,21 +1,28 @@
 <?php
 
+namespace CustomsControlSM\db;
+
+use MongoDB\Client;
+
 class MongoDatabase implements IDatabase {
 
-		public function init() {
+		private $mongoDB;
+
+		public function __construct() {
 
 				$mongoDBhost = "localhost:27017";
-				$mongoDBname = "orders";
 				$mongoDBusername = "stole";
 				$mongoDBpassword = "stole";
 
 				$mongoDB = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
 
+                $this->mongoDB = $mongoDB;
+
 		}
 
 		public function create($user, $fileName) {
 
-					$mongoCollection = $mongoDB->selectDatabase('orders')->selectCollection('uploads');
+					$mongoCollection = $this->mongoDB->selectDatabase('orders')->selectCollection('uploads');
 
 		    		$data = array( 
 				      "user" => $user, 
@@ -29,9 +36,9 @@ class MongoDatabase implements IDatabase {
 			
 		}
 
-		public function delete($fileName) {
+		public function delete($user,$fileName) {
 
-			$mongoCollection = $mongoDB->selectDatabase('orders')->selectCollection('uploads');
+			$mongoCollection = $this->mongoDB->selectDatabase('orders')->selectCollection('uploads');
 			$mongoCollection->remove(array("file"=> $fileName), array("justOne" => true));
 				
 		}

@@ -1,6 +1,6 @@
 <?php
 
-use Model\ProductEvidence;
+use CustomsControlSM\Model\ProductEvidence;
 
 	$productEvidence = new ProductEvidence();
 
@@ -17,7 +17,6 @@ use Model\ProductEvidence;
         $fileName = $_GET['uploadedFile'];
         
         productEvidence->deleteProductEvidence($fileName);
-
-                
+              
     }
 ?>
