@@ -27,7 +27,7 @@ require "../config.php";
         </br>
         </br>
 
-        <form method="post" action ="ProductEvidenceController.php" enctype="multipart/form-data">
+        <form method="post" action ="../ProductEvidenceController.php" enctype="multipart/form-data">
 
           <div class="form-group">
               

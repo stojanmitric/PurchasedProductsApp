@@ -16,7 +16,7 @@ use CustomsControlSM\Model\ProductEvidence;
 		$user = $_GET['user'];
         $fileName = $_GET['uploadedFile'];
         
-        productEvidence->deleteProductEvidence($fileName);
+        $productEvidence->deleteProductEvidence($fileName);
               
     }
 ?>

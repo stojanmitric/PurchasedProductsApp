@@ -39,7 +39,12 @@ class MongoDatabase implements IDatabase {
 		public function delete($user,$fileName) {
 
 			$mongoCollection = $this->mongoDB->selectDatabase('orders')->selectCollection('uploads');
-			$mongoCollection->remove(array("file"=> $fileName), array("justOne" => true));
+            $remaining = $mongoCollection->count(array('file' => $fileName));
+
+            while($remaining >0) {
+                $mongoCollection->remove(array("file" => $fileName), array("justOne" => true));
+                $remaining--;
+            }
 				
 		}
 
