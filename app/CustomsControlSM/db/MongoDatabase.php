@@ -6,7 +6,7 @@ use MongoDB\Client;
 
 class MongoDatabase implements IDatabase {
 
-		private $mongoDB;
+		private $mongoCollection;
 
 		public function __construct() {
 
@@ -16,40 +16,43 @@ class MongoDatabase implements IDatabase {
 
 				$mongoDB = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
 
-                $this->mongoDB = $mongoDB;
+				$mongoCollection = $mongoDB->selectDatabase('orders')->selectCollection('uploads');
+
+                $this->mongoCollection = $mongoCollection;
 
 		}
 
 		public function create($user, $fileName) {
 
-					$mongoCollection = $this->mongoDB->selectDatabase('orders')->selectCollection('uploads');
-
 		    		$data = array( 
 				      "user" => $user, 
 				      "file" => $fileName
 				   	);
-		    		$mongoCollection->insertOne($data);
+
+		    		$this->mongoCollection->insertOne($data);
 
 		}
 
-		public function update() {
+		public function update($user,$file) {
+			$this->mongoCollection->updateOne(array('user'=> $user),
+			array('$set' => array('file' => $file));
 			
 		}
 
 		public function delete($user,$fileName) {
 
-			$mongoCollection = $this->mongoDB->selectDatabase('orders')->selectCollection('uploads');
-            $remaining = $mongoCollection->count(array('file' => $fileName));
+            $remaining = $this->mongoCollection->count(array('file' => $fileName));
 
             while($remaining >0) {
-                $mongoCollection->remove(array("file" => $fileName), array("justOne" => true));
+				$this->mongoCollection->remove(array("file" => $fileName), array("justOne" => true));
                 $remaining--;
             }
 				
 		}
 
 		public function listAll() {
-			
+			$allRecords = $this->mongoCollection->find();
+			return $allRecords;
 		}
 }
 

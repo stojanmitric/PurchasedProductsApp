@@ -5,12 +5,12 @@ require_once __DIR__ . '../vendor/autoload.php';
 use CustomsControlSM\db\MySqlDatabase;
 use CustomsControlSM\db\MongoDatabase;
 
-$activeDB = 'mysql';
+$chooseDB = 'mysql';
 
-if($activeDB==='mysql') {
-	$mysql = new MySqlDatabase();
+if($chooseDB==='mysql') {
+	$GLOBALS['activeDB'] = new MySqlDatabase();
 } else {
-	$mongo = new MongoDatabase();
+	$GLOBALS['activeDB'] = new MongoDatabase();
 }
 
 ?>

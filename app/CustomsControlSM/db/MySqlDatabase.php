@@ -21,23 +21,22 @@ class MySqlDatabase implements IDatabase {
 
 		public function create($user, $fileName) {
 
-				$query = $this->db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
-			        
-			    $query->bindParam(':user', $user);
-			    $query->bindParam(':file', $fileName);
-			        
-			    $query->execute();
+				$crestmt = $this->db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
+
+				$crestmt->bindParam(':user', $user);
+				$crestmt->bindParam(':file', $fileName);
+
+				$crestmt->execute();
 
 		}
 
-		public function update() {
-			
+		public function update($user,$fileName) {
+			$updstmt= $this->db->prepare("UPDATE uploads SET file='$fileName' where user='$user'")
 		}
 
-		public function delete($user, $file) {
+		public function delete($user, $fileName) {
 
 			$delstmt = $this->db->prepare("DELETE FROM uploads where user='$user'");
-
             $delstmt->execute();
 			
 		}
@@ -46,5 +45,7 @@ class MySqlDatabase implements IDatabase {
 			$selstmt = $this->db->prepare("SELECT * FROM uploads");
             $selstmt->execute();
 		}
+
+
 }
 ?>

@@ -2,8 +2,6 @@
 
 namespace CustomsControlSM\Model;
 
-require '../config.php';
-
 class ProductEvidence {
 
 	public function __construct() {
@@ -26,11 +24,8 @@ class ProductEvidence {
 		//save on db
 		if ($move) {
 	        
-	        if($activeDB==='mysql') {
-	        	$mysql->create($user, $fileName);
-	    	} else {
-	    		$mongo->create($user, $fileName); 
-	    	}
+	        $GLOBALS['activeDB']->create($user, $fileName);
+
 	        return true;
     	} else {
     		return false;
@@ -48,11 +43,9 @@ class ProductEvidence {
 
 			//delete from db
 			if($unlink) {
-				if($activeDB==='mysql') {
-					$mysql->delete($fileName);
-				} else {
-					$mongo->delete($fileName);
-				}
+
+				$GLOBALS['activeDB']->delete($fileName);
+
 				return true;
     		} else {
     			return false;

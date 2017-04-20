@@ -6,7 +6,7 @@ interface IDatabase {
 
 	public function create($user, $fileName);
 
-	public function update();
+	public function update($user,$file);
 
 	public function delete($user, $file);
 

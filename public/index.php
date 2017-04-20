@@ -1,6 +1,6 @@
 <?php
 
-require "../config.php";
+require_once "../config.php";
 
 ?>
 
@@ -27,7 +27,7 @@ require "../config.php";
         </br>
         </br>
 
-        <form method="post" action ="../ProductEvidenceController.php" enctype="multipart/form-data">
+        <form method="post" action ="ProductEvidenceController.php" enctype="multipart/form-data">
 
           <div class="form-group">
               
@@ -37,7 +37,10 @@ require "../config.php";
                 <p class="help-block">Click to choose your order evidence.</p>
               </div>
 
+          </div>
+
               <button type="submit" class="btn btn-default">Submit</button>
+
         </form>
 
         </br>
@@ -45,48 +48,20 @@ require "../config.php";
         </br>
 
         <div class="row">
-
-        <?php
-
-            if($activeDB === 'mysql') {
-
-            $selstmt = $db->prepare("SELECT * FROM uploads");
-            $selstmt->execute();
-            while($row = $selstmt->fetch()) {
-            
-            ?>
-              <div class="col-xs-6 col-md-4">
-              <div class= "tumbnail">    
-                  <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
-              </div>
-
-              <div class="caption text-center">
-                <p><a href="?uploadedFile=<?php echo $row['file'] ?>&user=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
-              </div>
-        </div>
-        <?php
-            }
-
-        } else {
-
-            //show pictures with mongo
-
-
-        ?>
             <div class="col-xs-6 col-md-4">
+
               <div class= "tumbnail">    
                   <img style = "height:200px;" src="../UploadedFiles/<?php echo $row['file'] ?>" alt="<?php echo $row['file'] ?>" title = "<?php echo $row['file'] ?>">
               </div>
 
               <div class="caption text-center">
                 <p><a href="?uploadedFile=<?php echo $row['file'] ?>&user=<?php echo $row['user'] ?>" class="btn btn-danger" role="button"> Delete </a>
+              </div>
+
             </div>
-        <?php
 
+        </div>
 
-        }
-
-        ?>
 
     </div>
 
