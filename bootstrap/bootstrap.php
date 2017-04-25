@@ -9,8 +9,9 @@
     use CustomsControlSM\db\UserMongoCRUD;
     use CustomsControlSM\db\UserMySqlCRUD;
 
+    define('ACTIVE_DB',$activeDB);
 
-    if(ACTIVE_DB == 'mysql') {
+    if(CHOOSE_DB == 'mysql') {
 
         $dbhost = "localhost:3333";
         $dbname = "orders";
@@ -19,7 +20,7 @@
 
         $db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
 
-        define('MYSQL_DB', $db);
+        $activeDB=$db;
 
     } else {
 
@@ -27,9 +28,11 @@
         $mongoDBusername = "stole";
         $mongoDBpassword = "stole";
 
-        $mongoDB = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
+        $mongoConnection = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
 
-        define('MONGO_DB', $mongoDB);
+        $mongoDB = $mongoConnection->selectDatabase('orders');
+
+        $activeDB=$mongoDB;
 
     }
 ?>

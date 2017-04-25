@@ -2,17 +2,17 @@
 
 namespace CustomsControlSM\db;
 
-require_once "../../../bootstrap/bootstrap.php";
+require "../../../bootstrap/bootstrap.php";
 
 class ProductMongoCRUD implements IProductCRUD {
 
-    private $mongoCollection;
+    public $mongoCollection;
 
     public function __construct() {
 
-        $mongoCollection = MONGO_DB;
+        $mongoDB = ACTIVE_DB;
 
-        $this->mongoCollection = $mongoCollection->selectDatabase('orders')->selectCollection('uploads');
+        $this->mongoCollection = $mongoDB->selectCollection('uploads');
 
     }
 
@@ -29,7 +29,8 @@ class ProductMongoCRUD implements IProductCRUD {
 
     public function update($user,$file) {
         $this->mongoCollection->updateOne(array('user'=> $user),
-            array('$set' => array('file' => $file));
+            array('$set' => array('file' => $file))
+        );
 
     }
 

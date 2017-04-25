@@ -12,5 +12,23 @@ class User {
 
     }
 
+    public function createUser() {
+
+    }
+
+    public function updateUser() {
+
+    }
+
+    public function deleteUser() {
+
+    }
+
+    public function listUsers() {
+
+    }
+
+
+
 }
 ?>

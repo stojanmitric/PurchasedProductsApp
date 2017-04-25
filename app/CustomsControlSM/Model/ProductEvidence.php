@@ -2,6 +2,8 @@
 
 namespace CustomsControlSM\Model;
 
+require "../../../bootstrap/bootstrap.php";
+
 class ProductEvidence {
 
 	public function __construct() {
@@ -24,7 +26,7 @@ class ProductEvidence {
 		//save on db
 		if ($move) {
 	        
-	        $GLOBALS['activeDB']->create($user, $fileName);
+	        ACTIVE_DB->create($user, $fileName);
 
 	        return true;
     	} else {
@@ -44,7 +46,7 @@ class ProductEvidence {
 			//delete from db
 			if($unlink) {
 
-				$GLOBALS['activeDB']->delete($fileName);
+				ACTIVE_DB->delete($fileName);
 
 				return true;
     		} else {

@@ -2,15 +2,15 @@
 
 namespace CustomsControlSM\db;
 
-require_once "../../../bootstrap/bootstrap.php";
+require "../../../bootstrap/bootstrap.php";
 
 class ProductMySqlCRUD implements IProductCRUD {
 
-    private $db;
+    public $db;
 
     public function __construct() {
 
-        $db = MYSQL_DB;
+        $db = ACTIVE_DB;
 
         $this->db=$db;
     }

@@ -1,5 +1,5 @@
 <?php
 
-define('ACTIVE_DB', 'mysql');
+define('CHOOSE_DB', 'mysql');
 
 ?>
