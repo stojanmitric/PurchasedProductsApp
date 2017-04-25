@@ -1,14 +1,35 @@
 <?php
+
     require_once __DIR__ . '../vendor/autoload.php';
 
-    use CustomsControlSM\db\MySqlDatabase;
-    use CustomsControlSM\db\MongoDatabase;
+    require_once '../config.php';
 
-    $chooseDB = 'mysql';
+    use MongoDB\Client;
 
-    if($chooseDB==='mysql') {
-    $GLOBALS['activeDB'] = new MySqlDatabase();
+    use CustomsControlSM\db\UserMongoCRUD;
+    use CustomsControlSM\db\UserMySqlCRUD;
+
+
+    if(ACTIVE_DB == 'mysql') {
+
+        $dbhost = "localhost:3333";
+        $dbname = "orders";
+        $dbusername = "stole";
+        $dbpassword = "sifra";
+
+        $db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
+
+        define('MYSQL_DB', $db);
+
     } else {
-    $GLOBALS['activeDB'] = new MongoDatabase();
+
+        $mongoDBhost = "localhost:27017";
+        $mongoDBusername = "stole";
+        $mongoDBpassword = "stole";
+
+        $mongoDB = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
+
+        define('MONGO_DB', $mongoDB);
+
     }
 ?>
