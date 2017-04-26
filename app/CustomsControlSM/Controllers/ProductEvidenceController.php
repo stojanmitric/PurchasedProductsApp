@@ -4,29 +4,15 @@ namespace CustomsControlSM\Controllers;
 
 use CustomsControlSM\Model\ProductEvidence;
 
-class ProductEvidenceController
-{
-	private $productEvidence;
-
-	public function __construct(array $options = array()) {
-
-		$this->productEvidence = new ProductEvidence();
-	}
-
-	public function save()
-	{
+		$productEvidence = new ProductEvidence();
 
 
 		//create file
 		if (isset($_FILES['file_upload'])) {
 
-			$this->productEvidence->saveProductEvidence($_FILES['file_upload']);
+			$productEvidence->saveProductEvidence($_FILES['file_upload']);
 		}
 
-	}
-
-	public function delete()
-	{
 
 		//delete file
 		if (isset($_GET['uploadedFile'])) {
@@ -34,17 +20,11 @@ class ProductEvidenceController
 			$user = $_GET['user'];
 			$fileName = $_GET['uploadedFile'];
 
-			$this->productEvidence->deleteProductEvidence($fileName);
+			$productEvidence->deleteProductEvidence($fileName);
 
 		}
-	}
 
 
-	public function update()
-	{
 		//update file
-	}
 
-
-}
 ?>
