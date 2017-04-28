@@ -6,7 +6,13 @@ require "../../../bootstrap/bootstrap.php";
 
 class ProductEvidence {
 
+	private $db;
+
 	public function __construct() {
+
+		$db = ACTIVE_DB;
+
+		$this->db=$db;
 
 	}
 
