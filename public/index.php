@@ -8,6 +8,6 @@ require_once "../bootstrap/bootstrap.php";
     $twig = new Twig_Environment($loader);
 
     $twig->render('index.html', array(
-        "users" =>
+
     ));
 ?>

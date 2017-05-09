@@ -9,8 +9,6 @@
     use CustomsControlSM\db\UserMongoCRUD;
     use CustomsControlSM\db\UserMySqlCRUD;
 
-    define('ACTIVE_DB',$activeDB);
-
     if(CHOOSE_DB == 'mysql') {
 
         $dbhost = "localhost:3333";
@@ -35,4 +33,6 @@
         $activeDB=$mongoDB;
 
     }
+
+    define('ACTIVE_DB',$activeDB);
 ?>

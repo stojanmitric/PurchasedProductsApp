@@ -32,7 +32,7 @@ class ProductEvidence {
 		//save on db
 		if ($move) {
 	        
-	        ACTIVE_DB->create($user, $fileName);
+	       $this->db->create($user, $fileName);
 
 	        return true;
     	} else {
@@ -52,7 +52,7 @@ class ProductEvidence {
 			//delete from db
 			if($unlink) {
 
-				ACTIVE_DB->delete($fileName);
+				$this->db->delete($fileName);
 
 				return true;
     		} else {

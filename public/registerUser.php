@@ -54,7 +54,7 @@ use CustomsControlSM\Controllers\UserController;
                                 </tr>
 
                                 <tr>
-                                    <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="edit" value="Update"></td>
+                                    <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="register_btn" value="Register"></td>
                                 </tr>
                             </table>
                         </form>
