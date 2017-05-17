@@ -2,50 +2,68 @@
 
 namespace CustomsControlSM\Model;
 
+require "../../../bootstrap/bootstrap.php";
 
+class ProductEvidence
+{
 
-class ProductEvidence {
+    private $db;
 
-public $name;
-public $size;
-public $type;
-public $tmp;
+    public function __construct()
+    {
 
-	public function __construct($name,$size,$type,$tmp) {
+        $db = ACTIVE_DB;
 
-		$this->name = $name;
-		$this->size = $size;
-		$this->type = $type;
-		$this->tmp = $tmp;
+        $this->db = $db;
 
-	}
+    }
 
-	public function save() {
+    public function saveProductEvidence($file)
+    {
+        //save local
+        $user = rand();
+        $fileName = $file['name'];
 
-		include ("../config.php");
+        $fileToUpload = '../UploadedFiles/' . $fileName;
 
-		$user     = rand();
+        $move = '';
 
-		$files = '../UploadedFiles/' . $this->name;
+        if (!file_exists($fileToUpload)) {
+            $move = move_uploaded_file($file['tmp_name'], $fileToUpload);
+        }
 
-		$move = move_uploaded_file($this->tmp, $files);
+        //save on db
+        if ($move) {
 
-		if ($move) {
-	        
-	        $query = $db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
-	        
-	        $query->bindParam(':user', $user);
-	        $query->bindParam(':file', $this->name);
-	        
-	        $query->execute();
+            $this->db->create($user, $fileName);
 
-	        return true;
-    	} else {
-    		return false;
-    	}
+            return true;
+        } else {
+            return false;
+        }
 
-        
-	}
+    }
+
+    public function updateProductEvidence($file)
+    {
+        $this->db->update($file);
+    }
+
+    public function deleteProductEvidence($fileName)
+    {
+        //delete from local
+        $unlink = unlink('../UploadedFiles/' . $fileName);
+
+        //delete from db
+        if ($unlink) {
+
+            $this->db->delete($fileName);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

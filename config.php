@@ -1,14 +1,5 @@
 <?php
 
-require_once __DIR__ . '../vendor/autoload.php';
+define('CHOOSE_DB', 'mysql');
 
-$dbhost = "localhost:3333";
-$dbname = "orders";
-$dbusername = "stole";
-$dbpassword = "sifra";
-
-
-$db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
-
-//$db = new mysqli('localhost:3333', 'stole', 'sifra', 'orders');
 ?>
