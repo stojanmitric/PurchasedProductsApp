@@ -1,38 +1,38 @@
 <?php
 
-    require_once __DIR__ . '../vendor/autoload.php';
+require_once __DIR__ . '../vendor/autoload.php';
 
-    require_once '../config.php';
+require_once '../config.php';
 
-    use MongoDB\Client;
+use MongoDB\Client;
 
-    use CustomsControlSM\db\UserMongoCRUD;
-    use CustomsControlSM\db\UserMySqlCRUD;
+use CustomsControlSM\db\UserMongoCRUD;
+use CustomsControlSM\db\UserMySqlCRUD;
 
-    if(CHOOSE_DB == 'mysql') {
+if (CHOOSE_DB == 'mysql') {
 
-        $dbhost = "localhost:3333";
-        $dbname = "orders";
-        $dbusername = "stole";
-        $dbpassword = "sifra";
+    $dbhost = "localhost:3333";
+    $dbname = "orders";
+    $dbusername = "stole";
+    $dbpassword = "sifra";
 
-        $db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
+    $db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
 
-        $activeDB=$db;
+    $activeDB = $db;
 
-    } else {
+} else {
 
-        $mongoDBhost = "localhost:27017";
-        $mongoDBusername = "stole";
-        $mongoDBpassword = "stole";
+    $mongoDBhost = "localhost:27017";
+    $mongoDBusername = "stole";
+    $mongoDBpassword = "stole";
 
-        $mongoConnection = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
+    $mongoConnection = new Client("mongodb://$mongoDBhost", array("username" => $mongoDBusername, "password" => $mongoDBpassword));
 
-        $mongoDB = $mongoConnection->selectDatabase('orders');
+    $mongoDB = $mongoConnection->selectDatabase('orders');
 
-        $activeDB=$mongoDB;
+    $activeDB = $mongoDB;
 
-    }
+}
 
-    define('ACTIVE_DB',$activeDB);
+define('ACTIVE_DB', $activeDB);
 ?>

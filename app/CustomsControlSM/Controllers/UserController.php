@@ -6,28 +6,28 @@ use CustomsControlSM\Model\User;
 
 $user = new User();
 
-if(isset($_POST['register_btn'])) {
+if (isset($_POST['register_btn'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $userName = $_POST['userName'];
     $password = $_POST['password'];
 
-    $user->createUser($name,$email,$userName,$password);
+    $user->createUser($name, $email, $userName, $password);
 }
 
-if(isset($_POST['update_btn'])) {
+if (isset($_POST['update_btn'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $userName = $_POST['userName'];
     $password = $_POST['password'];
 
-    $user->updateUser($name,$email,$userName,$password);
+    $user->updateUser($name, $email, $userName, $password);
 }
 
-if(isset($_POST['delete_btn'])) {
-    $user->deleteUser();
-}
+if (isset($_POST['delete_btn'])) {
 
+    $user->deleteUser($id);
+}
 
 
 ?>

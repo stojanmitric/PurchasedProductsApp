@@ -25,7 +25,7 @@ use CustomsControlSM\Controllers\UserController;
 
 <div class="container">
     <div class="jumbotron">
-        <h1>Update registered user
+        <h1>Delete registered user
             <small>Stojan Mitric</small>
         </h1>
     </div>
@@ -34,35 +34,20 @@ use CustomsControlSM\Controllers\UserController;
 
     <form method="post" action="UserController.php">
         <table class="table table-hover">
+
             <tr>
-                <td><input type="hidden" name="id"></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" class="form-control" name="name" placeholder="Enter your name"></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="text" class="form-control" name="email" placeholder="Enter your email"></td>
+                <td>Id</td>
+                <td><input type="text" class="form-control" name="id"
+                           placeholder="Enter id of the user you want to delete"></td>
             </tr>
 
             <tr>
-                <td>User name</td>
-                <td><input type="text" class="form-control" name="userName" placeholder="Enter your username"></td>
+                <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="delete_btn"
+                                                      value="Delete"></td>
             </tr>
 
-            <tr>
-                <td>Password</td>
-                <td><input type="text" class="form-control" name="password" placeholder="Enter your password"></td>
-            </tr>
-
-            <tr>
-                <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="update_btn"
-                                                      value="Update"></td>
-            </tr>
         </table>
     </form>
-
 </div>
 
 </body>

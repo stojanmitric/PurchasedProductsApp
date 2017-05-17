@@ -2,7 +2,8 @@
 
 require "../../../bootstrap/bootstrap.php";
 
-class User {
+class User
+{
 
 
     private $name;
@@ -17,27 +18,31 @@ class User {
 
         $db = ACTIVE_DB;
 
-        $this->db=$db;
+        $this->db = $db;
 
     }
 
-    public function createUser($name, $email, $userName, $password) {
+    public function createUser($name, $email, $userName, $password)
+    {
         $this->db->create($name, $email, $userName, $password);
     }
 
-    public function updateUser() {
+    public function updateUser()
+    {
         $this->db->update();
     }
 
-    public function deleteUser() {
+    public function deleteUser()
+    {
         $this->db->delete();
     }
 
-    public function listUsers() {
+    public function listUsers()
+    {
         $this->db->listAll();
     }
 
 
-
 }
+
 ?>

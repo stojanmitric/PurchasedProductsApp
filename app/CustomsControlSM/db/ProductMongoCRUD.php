@@ -4,11 +4,13 @@ namespace CustomsControlSM\db;
 
 require "../../../bootstrap/bootstrap.php";
 
-class ProductMongoCRUD implements IProductCRUD {
+class ProductMongoCRUD implements IProductCRUD
+{
 
     public $mongoCollection;
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $mongoDB = ACTIVE_DB;
 
@@ -16,7 +18,8 @@ class ProductMongoCRUD implements IProductCRUD {
 
     }
 
-    public function create($user, $fileName) {
+    public function create($user, $fileName)
+    {
 
         $data = array(
             "user" => $user,
@@ -27,25 +30,28 @@ class ProductMongoCRUD implements IProductCRUD {
 
     }
 
-    public function update($user,$file) {
-        $this->mongoCollection->updateOne(array('user'=> $user),
+    public function update($user, $file)
+    {
+        $this->mongoCollection->updateOne(array('user' => $user),
             array('$set' => array('file' => $file))
         );
 
     }
 
-    public function delete($user,$fileName) {
+    public function delete($fileName)
+    {
 
         $remaining = $this->mongoCollection->count(array('file' => $fileName));
 
-        while($remaining >0) {
+        while ($remaining > 0) {
             $this->mongoCollection->remove(array("file" => $fileName), array("justOne" => true));
             $remaining--;
         }
 
     }
 
-    public function listAll() {
+    public function listAll()
+    {
         $allRecords = $this->mongoCollection->find();
         return $allRecords;
     }

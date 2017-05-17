@@ -4,61 +4,66 @@ namespace CustomsControlSM\Model;
 
 require "../../../bootstrap/bootstrap.php";
 
-class ProductEvidence {
+class ProductEvidence
+{
 
-	private $db;
+    private $db;
 
-	public function __construct() {
+    public function __construct()
+    {
 
-		$db = ACTIVE_DB;
+        $db = ACTIVE_DB;
 
-		$this->db=$db;
+        $this->db = $db;
 
-	}
+    }
 
-	public function saveProductEvidence($file) {
-		//save local
-		$user     = rand();
-		$fileName = $file['name'];
+    public function saveProductEvidence($file)
+    {
+        //save local
+        $user = rand();
+        $fileName = $file['name'];
 
-		$fileToUpload = '../UploadedFiles/' . $fileName;
+        $fileToUpload = '../UploadedFiles/' . $fileName;
 
-		$move = '';
+        $move = '';
 
-		if(!file_exists($fileToUpload)) {
-			$move = move_uploaded_file($file['tmp_name'], $fileToUpload);
-		} 
+        if (!file_exists($fileToUpload)) {
+            $move = move_uploaded_file($file['tmp_name'], $fileToUpload);
+        }
 
-		//save on db
-		if ($move) {
-	        
-	       $this->db->create($user, $fileName);
+        //save on db
+        if ($move) {
 
-	        return true;
-    	} else {
-    		return false;
-    	}
-  
-	}
+            $this->db->create($user, $fileName);
 
-	public function updateProductEvidence($file) {
+            return true;
+        } else {
+            return false;
+        }
 
-	}
+    }
 
-	public function deleteProductEvidence($fileName) {
-			//delete from local
-			$unlink = unlink('../UploadedFiles/'.$fileName);
+    public function updateProductEvidence($file)
+    {
 
-			//delete from db
-			if($unlink) {
+    }
 
-				$this->db->delete($fileName);
+    public function deleteProductEvidence($fileName)
+    {
+        //delete from local
+        $unlink = unlink('../UploadedFiles/' . $fileName);
 
-				return true;
-    		} else {
-    			return false;
-    	}
-	}
+        //delete from db
+        if ($unlink) {
+
+            $this->db->delete($fileName);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

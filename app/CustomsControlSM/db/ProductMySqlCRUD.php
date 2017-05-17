@@ -4,18 +4,21 @@ namespace CustomsControlSM\db;
 
 require "../../../bootstrap/bootstrap.php";
 
-class ProductMySqlCRUD implements IProductCRUD {
+class ProductMySqlCRUD implements IProductCRUD
+{
 
     public $db;
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $db = ACTIVE_DB;
 
-        $this->db=$db;
+        $this->db = $db;
     }
 
-    public function create($user, $fileName) {
+    public function create($user, $fileName)
+    {
 
         $crestmt = $this->db->prepare("INSERT INTO uploads (user, file) VALUES (:user, :file)");
 
@@ -26,19 +29,22 @@ class ProductMySqlCRUD implements IProductCRUD {
 
     }
 
-    public function update($user,$fileName) {
-        $updstmt= $this->db->prepare("UPDATE uploads SET file='$fileName' where user='$user'");
+    public function update($user, $fileName)
+    {
+        $updstmt = $this->db->prepare("UPDATE uploads SET file='$fileName' where user='$user'");
         $updstmt->execute();
     }
 
-    public function delete($user, $fileName) {
+    public function delete($fileName)
+    {
 
-        $delstmt = $this->db->prepare("DELETE FROM uploads where user='$user'");
+        $delstmt = $this->db->prepare("DELETE FROM uploads where file='$fileName'");
         $delstmt->execute();
 
     }
 
-    public function listAll() {
+    public function listAll()
+    {
         $selstmt = $this->db->prepare("SELECT * FROM uploads");
         $selstmt->execute();
     }

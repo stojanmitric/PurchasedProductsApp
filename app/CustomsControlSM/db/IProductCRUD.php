@@ -3,13 +3,14 @@
 
 namespace CustomsControlSM\db;
 
-interface IProductCRUD {
+interface IProductCRUD
+{
 
     public function create($user, $fileName);
 
-    public function update($user,$file);
+    public function update($user, $fileName);
 
-    public function delete($user, $file);
+    public function delete($fileName);
 
     public function listAll();
 
