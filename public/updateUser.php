@@ -26,11 +26,31 @@ use CustomsControlSM\Controllers\UserController;
 <div class="container">
     <div class="jumbotron">
         <h1>Update registered user
-            <small>Stojan Mitric</small>
         </h1>
     </div>
 </div>
 <div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html"> Home</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">User <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="registerUser.php">User registration</a></li>
+                        <li class="active"><a href="updateUser.php">User update</a></li>
+                        <li><a href="deleteUser.php">Delete update</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+
 
     <form method="post" action="UserController.php">
         <table class="table table-hover">
