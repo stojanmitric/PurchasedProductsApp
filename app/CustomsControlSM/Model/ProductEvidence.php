@@ -46,7 +46,7 @@ class ProductEvidence
 
     public function updateProductEvidence($file)
     {
-
+        $this->db->update($file);
     }
 
     public function deleteProductEvidence($fileName)

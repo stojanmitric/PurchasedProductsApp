@@ -30,10 +30,10 @@ class ProductMongoCRUD implements IProductCRUD
 
     }
 
-    public function update($user, $file)
+    public function update($user, $fileName)
     {
         $this->mongoCollection->updateOne(array('user' => $user),
-            array('$set' => array('file' => $file))
+            array('$set' => array('file' => $fileName))
         );
 
     }

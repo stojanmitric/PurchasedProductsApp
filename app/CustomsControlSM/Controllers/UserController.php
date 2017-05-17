@@ -26,6 +26,7 @@ if (isset($_POST['update_btn'])) {
 
 if (isset($_POST['delete_btn'])) {
 
+    $id = $_POST['id'];
     $user->deleteUser($id);
 }
 

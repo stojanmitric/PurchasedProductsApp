@@ -27,14 +27,14 @@ class User
         $this->db->create($name, $email, $userName, $password);
     }
 
-    public function updateUser()
+    public function updateUser($name, $email, $userName, $password)
     {
-        $this->db->update();
+        $this->db->update($name, $email, $userName, $password);
     }
 
-    public function deleteUser()
+    public function deleteUser($id)
     {
-        $this->db->delete();
+        $this->db->delete($id);
     }
 
     public function listUsers()
