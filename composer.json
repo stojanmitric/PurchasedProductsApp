@@ -6,6 +6,7 @@
 	},
 	"require": {
 		"mongodb/mongodb": "^1.0.0",
-		"twig/twig": "1.*"
+		"twig/twig": "1.*",
+		"fguillot/simpleLogger": "@stable"
 	}
 }

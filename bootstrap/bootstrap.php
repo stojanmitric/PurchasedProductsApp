@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '../vendor/autoload.php';
 
+$logger = new SimpleLogger\Logger;
+$logger->setLogger(new SimpleLogger\File('/tmp/simplelogger.log'));
+
 require_once '../config.php';
 
 use MongoDB\Client;

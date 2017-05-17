@@ -55,9 +55,6 @@ use CustomsControlSM\Controllers\UserController;
     <form method="post" action="UserController.php">
         <table class="table table-hover">
             <tr>
-                <td><input type="hidden" name="id"></td>
-            </tr>
-            <tr>
                 <td>Name</td>
                 <td><input type="text" class="form-control" name="name" placeholder="Enter your name"></td>
             </tr>
