@@ -24,7 +24,4 @@ if (isset($_GET['uploadedFile'])) {
 
 }
 
-
-//update file
-
 ?>
